@@ -1,4 +1,4 @@
-package com.motorview
+package com.motorview.app
 
 import android.app.Application
 import android.content.res.Configuration

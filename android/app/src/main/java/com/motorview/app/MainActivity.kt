@@ -1,4 +1,4 @@
-package com.motorview
+package com.motorview.app
 
 import android.os.Build
 import android.os.Bundle
