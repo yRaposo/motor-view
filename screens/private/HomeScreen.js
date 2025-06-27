@@ -5,17 +5,39 @@ import { useCameraPermissions } from "expo-camera";
 
 export default function HomeScreen() {
     const [permission, requestPermission] = useCameraPermissions();
-    
+
+    if (!permission) {
+        return (
+            <SafeAreaView style={styles.safeArea}>
+                <StatusBar style="auto" />
+                <View style={styles.container}>
+                    <Text style={styles.title}>Motor View</Text>
+                    <Text style={styles.desc}>Carregando...</Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
+
+    if (!permission.granted) {
+        return (
+            <SafeAreaView style={styles.safeArea}>
+                <StatusBar style="auto" />
+                <View style={styles.container}>
+                    <Text style={styles.title}>Motor View</Text>
+                    <Text style={styles.desc}>Ao clicar em iniciar escaneamento, você concorda em permitir o uso da sua câmera.</Text>
+                    <TouchableHighlight style={styles.button} onPress={requestPermission}>
+                        <Text style={styles.btnText}>Iniciar Escaneamento</Text>
+                    </TouchableHighlight>
+                </View>
+            </SafeAreaView>
+        );
+    }
+
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={styles.cameraSafeArea}>
             <StatusBar style="auto" />
-            <View style={styles.container}>
-                <Text style={styles.title}>Motor View</Text>
-                <Text style={styles.desc}>Ao clicar em iniciar escaneamento, você concorda em permitir o uso da sua câmera.</Text>
-                <TouchableHighlight style={styles.button} onPress={() => console.log("Iniciar escaneamento")}>
-                    <Text style={styles.btnText}>Iniciar Escaneamento</Text>
-                </TouchableHighlight>
-            </View>
+            <CameraView>
+            </CameraView>
         </SafeAreaView>
     );
 }
@@ -54,5 +76,9 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 16,
         fontWeight: "bold",
+    },
+    cameraSafeArea: {
+        flex: 1,
+        backgroundColor: "#000",
     },
 });
