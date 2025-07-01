@@ -30,8 +30,9 @@ export default function HomeScreen() {
                 // Salva na pasta personalizada do app
                 await saveToCustomFolder(photo);
 
-                // Opcional: também salvar na galeria
-                await saveToGallery(photo);
+                // Nota: Salvamento na galeria não funciona no Expo Go
+                // Para testar essa funcionalidade, use um development build
+                // await saveToGallery(photo);
 
             } catch (error) {
                 console.error('Erro ao tirar foto:', error);
@@ -128,11 +129,12 @@ export default function HomeScreen() {
     return (
         <SafeAreaView style={styles.cameraSafeArea}>
             <StatusBar style="auto" />
-            <CameraView
-                style={styles.camera}
-                facing={facing}
-                ref={cameraRef}
-            >
+            <View style={styles.cameraContainer}>
+                <CameraView
+                    style={styles.camera}
+                    facing={facing}
+                    ref={cameraRef}
+                />
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.CameraButton} onPress={toggleCameraFacing}>
                         <Text style={styles.buttonText}>Trocar Câmera</Text>
@@ -141,7 +143,7 @@ export default function HomeScreen() {
                         <Text style={styles.buttonText}>Tirar Foto</Text>
                     </TouchableOpacity>
                 </View>
-            </CameraView>
+            </View>
         </SafeAreaView>
     );
 }
@@ -183,28 +185,32 @@ const styles = StyleSheet.create({
     },
     cameraSafeArea: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
         backgroundColor: "#000",
+    },
+    cameraContainer: {
+        flex: 1,
+        position: "relative",
     },
     camera: {
         flex: 1,
         width: "100%",
     },
     buttonContainer: {
-        flex: 1,
+        position: "absolute",
+        bottom: 50,
+        left: 0,
+        right: 0,
         flexDirection: "row",
-        backgroundColor: "transparent",
-        margin: 64,
+        justifyContent: "space-around",
+        paddingHorizontal: 20,
     },
     CameraButton: {
-        flex: 1,
-        alignSelf: "flex-end",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        minWidth: 120,
         alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        padding: 15,
-        margin: 5,
-        borderRadius: 5,
     },
     buttonText: {
         fontSize: 18,

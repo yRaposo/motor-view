@@ -24,7 +24,7 @@
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "expo": "~53.0.13",
-    "expo-camera": "~16.1.9",
+    "expo-camera": "~16.1.10",
     "expo-file-system": "^18.1.11",
     "expo-media-library": "^17.1.7",
     "expo-status-bar": "~2.2.3",
